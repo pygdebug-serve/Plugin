@@ -6,6 +6,8 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -69,7 +71,20 @@ public class NetworkRouter implements PluginMessageListener
     public void sendPluginMessage(NetworkHandler handler, Player player, byte[] message)
     {
         String name = NAMESPACE_ROOT + handler.getName();
-        player.sendPluginMessage(this.plugin, name, message);
+
+        try(ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            DataOutputStream dos = new DataOutputStream(baos))
+        {
+            dos.writeByte(0);
+            dos.write(message);
+            dos.writeByte(0);
+
+            player.sendPluginMessage(this.plugin, name, baos.toByteArray());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }
 
