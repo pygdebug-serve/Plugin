@@ -1,0 +1,8 @@
+name: PeyangPluginDebugger
+version: '${project.version}'
+main: tokyo.peya.plugin.peyangplugindebugger.PeyangPluginDebugger
+api-version: 1.19
+prefix: PYDEBUG
+authors: [Peyang]
+description: A plugin of plugin debugging.
+website: https://peya.tokyo/
