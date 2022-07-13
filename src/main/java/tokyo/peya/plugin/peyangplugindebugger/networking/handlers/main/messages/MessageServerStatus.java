@@ -2,18 +2,25 @@ package tokyo.peya.plugin.peyangplugindebugger.networking.handlers.main.messages
 
 import lombok.Builder;
 import lombok.Value;
+import tokyo.peya.plugin.peyangplugindebugger.networking.OutgoingMessage;
 
 import java.util.UUID;
 
 @Value
 @Builder
-public class MessageServerStatus
+public class MessageServerStatus implements OutgoingMessage
 {
     PluginInformation[] plugins;
     PlayerInformation[] players;
     WorldInformation[] worlds;
 
     ServerLoad load;
+
+    @Override
+    public byte getId()
+    {
+        return 0x01;
+    }
 
     @Value
     @Builder

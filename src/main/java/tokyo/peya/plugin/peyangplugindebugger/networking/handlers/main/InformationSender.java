@@ -20,10 +20,10 @@ public class InformationSender
         switch (request.getAction())
         {
             case INFO_PLATFORM:
-                this.handler.send(router, sender, this.handler.encodeMessage(buildPlatformInfo()));
+                this.handler.send(router, sender, buildPlatformInfo());
                 break;
             case INFO_STATUS:
-                this.handler.send(router, sender, this.handler.encodeMessage(buildServerStatus()));
+                this.handler.send(router, sender, buildServerStatus());
                 break;
         }
     }

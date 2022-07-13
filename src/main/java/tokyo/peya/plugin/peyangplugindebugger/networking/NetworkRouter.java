@@ -86,5 +86,25 @@ public class NetworkRouter implements PluginMessageListener
             e.printStackTrace();
         }
     }
+
+    public void sendPluginMessage(NetworkHandler handler, Player player, OutgoingMessage message)
+    {
+
+        String name = NAMESPACE_ROOT + handler.getName();
+
+        try(ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            DataOutputStream dos = new DataOutputStream(baos))
+        {
+            dos.writeByte(message.getId());
+            dos.write(handler.encodeMessage(message));
+            dos.writeByte(0);
+
+            player.sendPluginMessage(this.plugin, name, baos.toByteArray());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 }
 

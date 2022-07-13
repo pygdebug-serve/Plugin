@@ -30,6 +30,12 @@ public interface NetworkHandler
         this.send(router, player, this.encodeMessage(object));
     }
 
+    default void send(NetworkRouter router, Player player, OutgoingMessage message)
+    {
+        router.sendPluginMessage(this, player, message);
+
+    }
+
     default <T> @Nullable T decodeMessage(byte[] value)
     {
         try

@@ -2,14 +2,14 @@ package tokyo.peya.plugin.peyangplugindebugger.networking.handlers.main.messages
 
 import lombok.Builder;
 import lombok.Value;
+import tokyo.peya.plugin.peyangplugindebugger.networking.OutgoingMessage;
 
 import java.util.UUID;
 
 @Value
 @Builder
-public class MessagePlatformInformation
+public class MessagePlatformInformation implements OutgoingMessage
 {
-    static final String TYPE = "platform_information";
 
     ServerInfo server;
 
@@ -17,6 +17,12 @@ public class MessagePlatformInformation
     InfoWithVendor java;
 
     CPUInformation cpu;
+
+    @Override
+    public byte getId()
+    {
+        return 0x00;
+    }
 
     @Value
     @Builder
