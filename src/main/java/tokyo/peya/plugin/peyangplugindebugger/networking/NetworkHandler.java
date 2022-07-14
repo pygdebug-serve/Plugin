@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 import org.msgpack.jackson.dataformat.MessagePackFactory;
+import tokyo.peya.lib.pygdebug.common.PacketBase;
 import tokyo.peya.plugin.peyangplugindebugger.PeyangPluginDebugger;
 
 import java.io.IOException;
@@ -30,7 +31,7 @@ public interface NetworkHandler
         this.send(router, player, this.encodeMessage(object));
     }
 
-    default void send(NetworkRouter router, Player player, OutgoingMessage message)
+    default void send(NetworkRouter router, Player player, PacketBase message)
     {
         router.sendPluginMessage(this, player, message);
 

@@ -3,10 +3,10 @@ package tokyo.peya.plugin.peyangplugindebugger.networking.handlers.main;
 import lombok.AllArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import tokyo.peya.lib.pygdebug.common.packets.main.PacketPlatformInformation;
+import tokyo.peya.lib.pygdebug.common.packets.main.PacketServerStatus;
 import tokyo.peya.plugin.peyangplugindebugger.networking.NetworkHandler;
 import tokyo.peya.plugin.peyangplugindebugger.networking.NetworkRouter;
-import tokyo.peya.plugin.peyangplugindebugger.networking.handlers.main.messages.MessagePlatformInformation;
-import tokyo.peya.plugin.peyangplugindebugger.networking.handlers.main.messages.MessageServerStatus;
 
 import java.util.Arrays;
 
@@ -28,31 +28,31 @@ public class InformationSender
         }
     }
 
-    private static MessageServerStatus buildServerStatus()
+    private static PacketServerStatus buildServerStatus()
     {
-        return MessageServerStatus.builder()
+        return PacketServerStatus.builder()
                 .players(Bukkit.getOnlinePlayers().stream()
                         .parallel()
-                        .map(player -> new MessageServerStatus.PlayerInformation(
+                        .map(player -> new PacketServerStatus.PlayerInformation(
                                 player.getName(),
                                 player.getUniqueId(),
                                 player.getAddress() == null ? "Unknown": player.getAddress().getHostString()))
-                        .toArray(MessageServerStatus.PlayerInformation[]::new))
+                        .toArray(PacketServerStatus.PlayerInformation[]::new))
                 .worlds(Bukkit.getWorlds().stream()
                         .parallel()
-                        .map(world -> new MessageServerStatus.WorldInformation(
+                        .map(world -> new PacketServerStatus.WorldInformation(
                                 world.getName(),
                                 world.getEntities().size(),
                                 world.getLoadedChunks().length))
-                        .toArray(MessageServerStatus.WorldInformation[]::new))
+                        .toArray(PacketServerStatus.WorldInformation[]::new))
                 .plugins(Arrays.stream(Bukkit.getPluginManager().getPlugins())
                         .parallel()
-                        .map(plugin -> new MessageServerStatus.PluginInformation(
+                        .map(plugin -> new PacketServerStatus.PluginInformation(
                                 plugin.getName(),
                                 plugin.getDescription().getVersion(),
                                 plugin.isEnabled()))
-                        .toArray(MessageServerStatus.PluginInformation[]::new))
-                .load(MessageServerStatus.ServerLoad.builder()
+                        .toArray(PacketServerStatus.PluginInformation[]::new))
+                .load(PacketServerStatus.ServerLoad.builder()
                         .tps1(Bukkit.getTPS()[0])
                         .tps5(Bukkit.getTPS()[1])
                         .tps15(Bukkit.getTPS()[2])
@@ -63,26 +63,26 @@ public class InformationSender
                 .build();
     }
 
-    private static MessagePlatformInformation buildPlatformInfo()
+    private static PacketPlatformInformation buildPlatformInfo()
     {
-        return MessagePlatformInformation.builder()
-                .server(MessagePlatformInformation.ServerInfo.builder()
+        return PacketPlatformInformation.builder()
+                .server(PacketPlatformInformation.ServerInfo.builder()
                         .name(Bukkit.getName())
                         .version(Bukkit.getVersion())
                         .minecraftVersion(Bukkit.getMinecraftVersion())
                         .onlineMode(Bukkit.getOnlineMode())
                         .build())
-                .os(MessagePlatformInformation.InfoWithVendor.builder()
+                .os(PacketPlatformInformation.InfoWithVendor.builder()
                         .name(System.getProperty("os.name"))
                         .arch(System.getProperty("os.arch"))
                         .version(System.getProperty("os.version"))
                         .build())
-                .java(MessagePlatformInformation.InfoWithVendor.builder()
+                .java(PacketPlatformInformation.InfoWithVendor.builder()
                         .name(System.getProperty("java.vendor"))
                         .arch(System.getProperty("java.vm.name"))
                         .version(System.getProperty("java.version"))
                         .build())
-                .cpu(MessagePlatformInformation.CPUInformation.builder()
+                .cpu(PacketPlatformInformation.CPUInformation.builder()
                         .name(System.getProperty("os.arch"))
                         .cores(Runtime.getRuntime().availableProcessors())
                         .threads(Runtime.getRuntime().availableProcessors())

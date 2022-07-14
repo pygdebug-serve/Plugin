@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.jetbrains.annotations.NotNull;
+import tokyo.peya.lib.pygdebug.common.PacketBase;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -87,7 +88,7 @@ public class NetworkRouter implements PluginMessageListener
         }
     }
 
-    public void sendPluginMessage(NetworkHandler handler, Player player, OutgoingMessage message)
+    public void sendPluginMessage(NetworkHandler handler, Player player, PacketBase message)
     {
 
         String name = NAMESPACE_ROOT + handler.getName();

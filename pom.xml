@@ -63,6 +63,10 @@
             <id>sonatype</id>
             <url>https://oss.sonatype.org/content/groups/public/</url>
         </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -94,6 +98,11 @@
             <groupId>org.msgpack</groupId>
             <artifactId>jackson-dataformat-msgpack</artifactId>
             <version>0.9.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.pygdebug-serve</groupId>
+            <artifactId>Common</artifactId>
+            <version>b5824281be</version>
         </dependency>
     </dependencies>
 </project>
