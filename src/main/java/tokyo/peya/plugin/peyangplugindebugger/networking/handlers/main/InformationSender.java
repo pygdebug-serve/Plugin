@@ -3,6 +3,7 @@ package tokyo.peya.plugin.peyangplugindebugger.networking.handlers.main;
 import lombok.AllArgsConstructor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import tokyo.peya.lib.pygdebug.common.packets.main.PacketInformationRequest;
 import tokyo.peya.lib.pygdebug.common.packets.main.PacketPlatformInformation;
 import tokyo.peya.lib.pygdebug.common.packets.main.PacketServerStatus;
 import tokyo.peya.plugin.peyangplugindebugger.networking.NetworkHandler;
@@ -15,14 +16,14 @@ public class InformationSender
 {
     private final NetworkHandler handler;
 
-    public void sendInfo(MainNetworkHandler.Request request, NetworkRouter router, Player sender)
+    public void sendInfo(PacketInformationRequest request, NetworkRouter router, Player sender)
     {
         switch (request.getAction())
         {
-            case INFO_PLATFORM:
+            case PLATFORM:
                 this.handler.send(router, sender, buildPlatformInfo());
                 break;
-            case INFO_STATUS:
+            case SERVER_STATUS:
                 this.handler.send(router, sender, buildServerStatus());
                 break;
         }

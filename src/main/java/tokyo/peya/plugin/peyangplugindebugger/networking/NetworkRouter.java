@@ -33,7 +33,7 @@ public class NetworkRouter implements PluginMessageListener
 
     public void registerHandler(NetworkHandler handler)
     {
-        String name = NAMESPACE_ROOT + handler.getName();
+        String name = handler.getName();
 
         if (this.handlers.containsKey(name))
             throw new IllegalArgumentException("Handler already registered: " + name);
@@ -44,6 +44,7 @@ public class NetworkRouter implements PluginMessageListener
     public void init()
     {
         this.handlers.forEach((name, handler) -> {
+            name = NAMESPACE_ROOT + name;
             Bukkit.getMessenger().registerOutgoingPluginChannel(this.plugin, name);
             Bukkit.getMessenger().registerIncomingPluginChannel(this.plugin, name, this);
             handler.onInitialized();

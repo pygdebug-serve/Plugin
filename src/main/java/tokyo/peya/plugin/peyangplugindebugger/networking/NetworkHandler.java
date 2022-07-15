@@ -1,7 +1,11 @@
 package tokyo.peya.plugin.peyangplugindebugger.networking;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 import org.msgpack.jackson.dataformat.MessagePackFactory;
@@ -12,7 +16,13 @@ import java.io.IOException;
 
 public interface NetworkHandler
 {
-     ObjectMapper MAPPER = new ObjectMapper(new MessagePackFactory());
+     ObjectMapper MAPPER = new ObjectMapper(new MessagePackFactory()) {
+         {
+             this.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+         }
+     };
+
+     ObjectWriter WRITER = MAPPER.writer().withoutAttribute("id");
 
 
     String getName();
@@ -37,11 +47,13 @@ public interface NetworkHandler
 
     }
 
-    default <T> @Nullable T decodeMessage(byte[] value)
+    default <CLS> @Nullable CLS decodeMessage(byte[] value, Class<CLS> clazz)
     {
         try
         {
-            return MAPPER.readValue(value, new TypeReference<T>(){});
+            byte[] data = new byte[value.length - 1];
+            System.arraycopy(value, 1, data, 0, data.length);
+            return MAPPER.readValue(data, clazz);
         }
         catch (IOException e)
         {
@@ -55,7 +67,7 @@ public interface NetworkHandler
     {
         try
         {
-            return MAPPER.writeValueAsBytes(value);
+            return WRITER.writeValueAsBytes(value);
         }
         catch (IOException e)
         {
