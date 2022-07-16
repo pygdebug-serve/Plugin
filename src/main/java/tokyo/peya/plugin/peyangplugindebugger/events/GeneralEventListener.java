@@ -14,8 +14,6 @@ public class GeneralEventListener implements Listener
     public GeneralEventListener(PeyangPluginDebugger plugin)
     {
         this.plugin = plugin;
-
-        Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
     public void onJoin(PlayerJoinEvent event)
