@@ -45,8 +45,8 @@ public class NetworkRouter implements PluginMessageListener
     {
         this.handlers.forEach((name, handler) -> {
             name = NAMESPACE_ROOT + name;
-            Bukkit.getMessenger().registerOutgoingPluginChannel(this.plugin, name);
             Bukkit.getMessenger().registerIncomingPluginChannel(this.plugin, name, this);
+            Bukkit.getMessenger().registerOutgoingPluginChannel(this.plugin, name);
             handler.onInitialized();
         });
     }
@@ -54,6 +54,7 @@ public class NetworkRouter implements PluginMessageListener
     public void dispose()
     {
         this.handlers.forEach((name, handler) -> {
+            name = NAMESPACE_ROOT + name;
             Bukkit.getMessenger().unregisterOutgoingPluginChannel(this.plugin, name);
             Bukkit.getMessenger().unregisterIncomingPluginChannel(this.plugin, name);
         });
