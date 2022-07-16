@@ -5,10 +5,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.jetbrains.annotations.NotNull;
+import tokyo.peya.lib.pygdebug.common.Packet;
 import tokyo.peya.lib.pygdebug.common.PacketBase;
+import tokyo.peya.plugin.peyangplugindebugger.utils.PacketEncodeUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,14 +95,18 @@ public class NetworkRouter implements PluginMessageListener
 
     public void sendPluginMessage(NetworkHandler handler, Player player, PacketBase message)
     {
+        this.sendPluginMessage(handler, player, message);
+    }
 
-        String name = NAMESPACE_ROOT + handler.getName();
+    public void sendPluginMessage(String name, Player player, PacketBase message)
+    {
+        name = NAMESPACE_ROOT + name;
 
         try(ByteArrayOutputStream baos = new ByteArrayOutputStream();
             DataOutputStream dos = new DataOutputStream(baos))
         {
-            dos.writeByte(message.getId());
-            dos.write(handler.encodeMessage(message));
+            dos.writeByte(getId(message));
+            dos.write(PacketEncodeUtils.encodeMessage(message));
             dos.writeByte(0);
 
             player.sendPluginMessage(this.plugin, name, baos.toByteArray());
@@ -108,6 +115,15 @@ public class NetworkRouter implements PluginMessageListener
         {
             e.printStackTrace();
         }
+    }
+
+    private static byte getId(PacketBase message)
+    {
+        for (Annotation annotation : message.getClass().getAnnotations())
+            if (annotation instanceof Packet)
+                return ((Packet) annotation).value();
+
+        return -1;
     }
 }
 

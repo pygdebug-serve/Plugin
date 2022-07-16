@@ -102,7 +102,12 @@
         <dependency>
             <groupId>com.github.pygdebug-serve</groupId>
             <artifactId>Common</artifactId>
-            <version>c8540b879f</version>
+            <version>0943355eb1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.TeamKUN</groupId>
+            <artifactId>PeyangPaperUtils</artifactId>
+            <version>1.0.6</version>
         </dependency>
     </dependencies>
 </project>
