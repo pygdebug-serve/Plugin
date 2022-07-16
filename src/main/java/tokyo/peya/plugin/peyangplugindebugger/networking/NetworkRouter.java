@@ -18,7 +18,7 @@ public class NetworkRouter implements PluginMessageListener
 
 
     static {
-        NAMESPACE_ROOT = "pydebug:";
+        NAMESPACE_ROOT = "pygdebug:";
     }
 
     private final Plugin plugin;
