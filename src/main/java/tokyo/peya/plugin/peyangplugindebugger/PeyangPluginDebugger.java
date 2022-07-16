@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import tokyo.peya.plugin.peyangplugindebugger.debugger.Debugger;
 import tokyo.peya.plugin.peyangplugindebugger.events.GeneralEventListener;
 import tokyo.peya.plugin.peyangplugindebugger.networking.NetworkRouter;
+import tokyo.peya.plugin.peyangplugindebugger.networking.handlers.debugging.DebugHandler;
 import tokyo.peya.plugin.peyangplugindebugger.networking.handlers.main.MainNetworkHandler;
 
 public final class PeyangPluginDebugger extends JavaPlugin
@@ -33,6 +34,7 @@ public final class PeyangPluginDebugger extends JavaPlugin
     private void initNetworkingHandlers()
     {
         this.router.registerHandler(new MainNetworkHandler(this));
+        this.router.registerHandler(new DebugHandler(this));
     }
 
     @Override

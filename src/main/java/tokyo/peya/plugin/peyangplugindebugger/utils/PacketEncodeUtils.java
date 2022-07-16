@@ -32,9 +32,7 @@ public class PacketEncodeUtils
         }
         catch (IOException e)
         {
-            e.printStackTrace();
-            PeyangPluginDebugger.LOGGER.warn("Failed to decode message: " + new String(value));
-            return null;
+            throw new RuntimeException("Failed to decode message: " + new String(value), e);
         }
     }
 
