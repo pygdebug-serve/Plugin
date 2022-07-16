@@ -15,10 +15,12 @@ import java.util.logging.LogRecord;
 
 public class Debugger
 {
+
     private final PeyangPluginDebugger plugin;
     private final Map<Player, DebuggerOption> players;
 
     private final NetworkRouter router;
+
 
     public Debugger(PeyangPluginDebugger plugin)
     {
@@ -46,13 +48,16 @@ public class Debugger
             return;
 
         Terminals.ofConsole().info("Player " + player.getName() + " is registered as a debug player.");
-        this.players.put(player, new DebuggerOption());
+
+        this.players.put(player, DebuggerOptionLoader.tryLoadDebuggerOption(player));
     }
 
     public void removePlayer(Player player)
     {
         if (!this.players.containsKey(player))
             return;
+
+        DebuggerOptionLoader.saveDebuggerOption(player, this.players.get(player));
 
         this.players.remove(player);
     }

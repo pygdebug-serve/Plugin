@@ -13,6 +13,8 @@ import tokyo.peya.plugin.peyangplugindebugger.networking.handlers.main.MainNetwo
 
 public final class PeyangPluginDebugger extends JavaPlugin
 {
+    public static PeyangPluginDebugger INSTANCE;
+
     public static Logger LOGGER;
 
     @Getter
@@ -23,6 +25,7 @@ public final class PeyangPluginDebugger extends JavaPlugin
 
     public PeyangPluginDebugger()
     {
+        INSTANCE = this;
         LOGGER = getSLF4JLogger();
 
         this.router = new NetworkRouter(this);
