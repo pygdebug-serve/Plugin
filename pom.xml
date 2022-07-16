@@ -102,7 +102,7 @@
         <dependency>
             <groupId>com.github.pygdebug-serve</groupId>
             <artifactId>Common</artifactId>
-            <version>0943355eb1</version>
+            <version>8649297135</version>
         </dependency>
         <dependency>
             <groupId>com.github.TeamKUN</groupId>

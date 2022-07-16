@@ -1,13 +1,17 @@
 package tokyo.peya.plugin.peyangplugindebugger;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import org.jetbrains.annotations.Nullable;
-import org.msgpack.jackson.dataformat.MessagePackFactory;
-
-import java.io.IOException;
+import tokyo.peya.lib.pygdebug.common.Packet;
+import tokyo.peya.lib.pygdebug.common.PacketBase;
 
 public class Utils
 {
+    public static byte getId(PacketBase message)
+    {
+        return getId(message.getClass());
+    }
+
+    public static byte getId(Class<? extends PacketBase> messageClass)
+    {
+        return messageClass.getAnnotation(Packet.class).value();
+    }
 }

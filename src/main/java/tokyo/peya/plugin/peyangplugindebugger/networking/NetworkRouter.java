@@ -7,6 +7,7 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.jetbrains.annotations.NotNull;
 import tokyo.peya.lib.pygdebug.common.Packet;
 import tokyo.peya.lib.pygdebug.common.PacketBase;
+import tokyo.peya.plugin.peyangplugindebugger.Utils;
 import tokyo.peya.plugin.peyangplugindebugger.utils.PacketEncodeUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -105,7 +106,7 @@ public class NetworkRouter implements PluginMessageListener
         try(ByteArrayOutputStream baos = new ByteArrayOutputStream();
             DataOutputStream dos = new DataOutputStream(baos))
         {
-            dos.writeByte(getId(message));
+            dos.writeByte(Utils.getId(message));
             dos.write(PacketEncodeUtils.encodeMessage(message));
             dos.writeByte(0);
 
@@ -117,13 +118,5 @@ public class NetworkRouter implements PluginMessageListener
         }
     }
 
-    private static byte getId(PacketBase message)
-    {
-        for (Annotation annotation : message.getClass().getAnnotations())
-            if (annotation instanceof Packet)
-                return ((Packet) annotation).value();
-
-        return -1;
-    }
 }
 
