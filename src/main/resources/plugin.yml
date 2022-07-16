@@ -6,3 +6,4 @@ prefix: PYDEBUG
 authors: [Peyang]
 description: A plugin of plugin debugging.
 website: https://peya.tokyo/
+softdepend: [PeyangPaperUtils]
