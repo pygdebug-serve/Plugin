@@ -96,7 +96,7 @@ public class NetworkRouter implements PluginMessageListener
 
     public void sendPluginMessage(NetworkHandler handler, Player player, PacketBase message)
     {
-        this.sendPluginMessage(handler, player, message);
+        this.sendPluginMessage(handler.getName(), player, message);
     }
 
     public void sendPluginMessage(String name, Player player, PacketBase message)

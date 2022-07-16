@@ -2,6 +2,7 @@ package tokyo.peya.plugin.peyangplugindebugger.events;
 
 import net.kunmc.lab.peyangpaperutils.lib.utils.Runner;
 import org.bukkit.Bukkit;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import tokyo.peya.lib.pygdebug.common.packets.main.PacketPygDebugAvailable;
@@ -16,6 +17,7 @@ public class GeneralEventListener implements Listener
         this.plugin = plugin;
     }
 
+    @EventHandler
     public void onJoin(PlayerJoinEvent event)
     {
         Runner.runLater(() -> {
